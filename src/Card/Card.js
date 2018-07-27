@@ -20,8 +20,8 @@ class Card extends Component {
       const inputOptions = options.map( (option, key) =>
         <div className="column" key={key}>
           <label className="radio subtitle has-margin-l-2 is-6 is-pulled-left">
-            <input type="radio" name="rsvp" value={option} />
-            <span className="has-margin-l-5">{option}</span>
+            <input type="radio" name="rsvp" value={option.value} onChange={this.props.onChange}/>
+            <span className="has-margin-l-5">{option.answer}</span>
           </label>
         </div>
       );
