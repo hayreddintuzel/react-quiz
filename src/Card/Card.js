@@ -16,12 +16,12 @@ class Card extends Component {
             <p className="subtitle ">{question}</p>
         </div>);
     } else {
-      const {options, rightAnswer} = this.props;
-      const inputOptions = options.map( option =>
-        <div key={options.id} className="column">
+      const {options} = this.props;
+      const inputOptions = options.map( (option, key) =>
+        <div className="column" key={key}>
           <label className="radio subtitle has-margin-l-2 is-6 is-pulled-left">
-            <input type="radio" name="rsvp" value={option.index} />
-            <span className="has-margin-l-5">{option.answer}</span>
+            <input type="radio" name="rsvp" value={option} />
+            <span className="has-margin-l-5">{option}</span>
           </label>
         </div>
       );

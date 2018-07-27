@@ -1,5 +1,5 @@
 {
-  "posts": [
+  "questions": [
     { "id": 1, "question": "Could I possibly be a messier house guest 1?", "options": ["answer 1", "answer 2", "answer 3", "answer 4"], "answer" : 1},
 		{ "id": 2, "question": "Could I possibly be a messier house guest 2?", "options": ["answer 1", "answer 2", "answer 3", "answer 4"], "answer" : 2},
 		{ "id": 3, "question": "Could I possibly be a messier house guest 3?", "options": ["answer 1", "answer 2", "answer 3", "answer 4"], "answer" : 3},
