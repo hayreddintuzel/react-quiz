@@ -10,6 +10,7 @@ import Header from './Header/Header.js';
 import Container from './Container/Container.js';
 import Card from './Card/Card.js';
 import Buttons from './Buttons/Buttons.js';
+import Results from './Results/Results.js';
 
 
 
@@ -45,23 +46,20 @@ setQuestion(Newquestion) {
 check = () => {
   const temprightAnswerCount = this.state.rightAnswerCount;
   const tempwrongAnswerCount = this.state.wrongAnswerCount;
-  if(this.state.useranswer === this.state.answer){
-      this.setState({
-        answerStatus : true,
-        rightAnswerCount : temprightAnswerCount + 1,
-        quizstatus : "evaluate",
-      });
-  } else {
+  console.log("right answer " + this.state.answer);
+  console.log("user answer " + this.state.useranswer);
+  if(this.state.answer == this.state.useranswer){
+    swal("Good job!", "You answered rightly", "success");
     this.setState({
-      answerStatus : false,
+      rightAnswerCount : temprightAnswerCount + 1,
+      quizstatus : "evaluate",
+    });
+  } else {
+    swal("Sorry!", "You answered wrongly", "error");
+    this.setState({
       wrongAnswerCount : tempwrongAnswerCount + 1,
       quizstatus : "evaluate",
     });
-  }
-  if(this.state.answer === this.state.useranswer){
-    swal("Good job!", "You answered rightly", "success");
-  } else {
-    swal("Sorry!", "You answered wrongly", "error");
   }
 }
 
@@ -131,19 +129,23 @@ check = () => {
     return (
       <div className="App">
         <Header className="is-primary">This is Apps Header</Header>
-        <Container className="has-margin-t-3">
+        <Container className="has-margin-t-1">
+          <Results rightAnswer={this.state.rightAnswerCount} emptyAnswer={this.state.emptyAnswerCount} wrongAnswer={this.state.wrongAnswerCount}/>
+        </Container>
+        <Container className="has-margin-t-5">
           <div className="columns">
             <div className="column">
               <Card question={this.state.question} type="question" number={this.state.questionNumber + 1} ></Card>
             </div>
             <div className="column">
-              <Card type="answer" options={this.state.options} onChange={this.getAnswer}></Card>
+              <Card type="answer" options={this.state.options} onChange={this.getAnswer} status={this.state.quizstatus}></Card>
             </div>
           </div>
         </Container>
         <Container>
             <Buttons status={this.state.quizstatus} check={this.check} nextQuestion={this.nextQuestion}></Buttons>
         </Container>
+
       </div>
     );
   }
