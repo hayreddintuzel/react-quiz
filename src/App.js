@@ -33,6 +33,12 @@ class App extends Component {
   }
 
 setQuestion(Newquestion) {
+  if(Newquestion === undefined)
+  {
+    this.setState({
+      quizstatus : "finish",
+    });
+  }
   const newQuestionNumber = this.state.questionNumber + 1
   this.setState({
      id : Newquestion.id,
@@ -46,8 +52,6 @@ setQuestion(Newquestion) {
 check = () => {
   const temprightAnswerCount = this.state.rightAnswerCount;
   const tempwrongAnswerCount = this.state.wrongAnswerCount;
-  console.log("right answer " + this.state.answer);
-  console.log("user answer " + this.state.useranswer);
   if(this.state.answer == this.state.useranswer){
     swal("Good job!", "You answered rightly", "success");
     this.setState({
@@ -62,6 +66,14 @@ check = () => {
     });
   }
 }
+
+pass = () => {
+  const tempemtyAnswerCount = this.state.emptyAnswerCount;
+    this.setState({
+      emptyAnswerCount : tempemtyAnswerCount + 1,
+      quizstatus : "evaluate",
+    });
+  }
 
   getAnswer = (e) => {
     const userAnswer =  e.currentTarget.value;
@@ -122,9 +134,33 @@ check = () => {
   render() {
     if(this.state.question === "")
     {
-      return <div className="App">
-      </div>
+      return (
+        <div className="App">
+        </div>
+      )
     }
+
+    if(this.state.quizstatus === "finish")
+    {
+      return (
+      <div className="App">
+        <Header className="is-primary">This is Apps Header</Header>
+        <Container className="has-margin-t-1">
+          <article className="message is-danger has-margin-t-1">
+            <div className="message-header">
+              <p>Quiz is Finished</p>
+            </div>
+            <div className="message-body">
+              <Container className="has-margin-t-1">
+                <Results rightAnswer={this.state.rightAnswerCount} emptyAnswer={this.state.emptyAnswerCount} wrongAnswer={this.state.wrongAnswerCount}/>
+              </Container>
+            </div>
+          </article>
+        </Container>
+      </div>
+      )
+    }
+
 
     return (
       <div className="App">
@@ -132,10 +168,10 @@ check = () => {
         <Container className="has-margin-t-1">
           <Results rightAnswer={this.state.rightAnswerCount} emptyAnswer={this.state.emptyAnswerCount} wrongAnswer={this.state.wrongAnswerCount}/>
         </Container>
-        <Container className="has-margin-t-5">
+        <Container className="has-margin-t-3">
           <div className="columns">
             <div className="column">
-              <Card question={this.state.question} type="question" number={this.state.questionNumber + 1} ></Card>
+              <Card question={this.state.question} type="question" number={this.state.questionNumber} ></Card>
             </div>
             <div className="column">
               <Card type="answer" options={this.state.options} onChange={this.getAnswer} status={this.state.quizstatus}></Card>
@@ -143,7 +179,7 @@ check = () => {
           </div>
         </Container>
         <Container>
-            <Buttons status={this.state.quizstatus} check={this.check} nextQuestion={this.nextQuestion}></Buttons>
+            <Buttons status={this.state.quizstatus} check={this.check} pass={this.pass} nextQuestion={this.nextQuestion}></Buttons>
         </Container>
 
       </div>

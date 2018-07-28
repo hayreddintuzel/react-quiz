@@ -15,7 +15,7 @@ class Buttons extends Component {
     if(this.props.status === "question"){
       buttonsPart = (<div className="columns">
                         <div className="column is-4"></div>
-                        <a className="column is-2 button is-danger controlButton">Pass</a>
+                        <a className="column is-2 button is-danger controlButton" onClick={this.props.pass}>Pass</a>
                         <a className="column is-2 button has-margin-l-5 is-success controlButton" onClick={this.props.check}>Confirm</a>
                     </div>)
     } else if( this.props.status === "evaluate") {
